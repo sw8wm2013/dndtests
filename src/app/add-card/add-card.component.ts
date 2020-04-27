@@ -14,8 +14,9 @@ export class AddCardComponent  {
       title: new FormControl()
   });
 
-  onSubmit() {
-      this.add.emit(this.addForm.get("title").value);
+  onSubmit(event) {
+      console.log('EVENT', event);
+      this.add.emit(this.addForm.get('title').value);
       this.addForm.reset();
   }
 

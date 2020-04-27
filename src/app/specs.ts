@@ -36,62 +36,64 @@ export class SortableSpecService {
   private savedTree = this.initialTree;
   public tree = this.initialTree;
 
-    moveList(item: DraggedItem<CardList>) {
-        return produce(this.savedTree, draft => {
-            if (item.isInternal) {
-                draft.splice(item.index, 1);
-            }
-            draft.splice(item.hover.index, 0, item.data);
-        });
-    }
+  moveList(item: DraggedItem<CardList>) {
+      return produce(this.savedTree, draft => {
+          if (item.isInternal) {
+              draft.splice(item.index, 1);
+          }
+          draft.splice(item.hover.index, 0, item.data);
+      });
+  }
 
-    boardSpec: SortableSpec<CardList> = {
-        type: ItemTypes.LIST,
-        trackBy: list => list.id,
-        hover: item => {
-            this.tree = this.moveList(item);
-        },
-        drop: item => {
-            this.tree = this.savedTree = this.moveList(item);
-        },
-        endDrag: _item => {
-            this.tree = this.savedTree;
-        },
-    };
+  // tslint:disable-next-line: member-ordering
+  boardSpec: SortableSpec<CardList> = {
+      type: ItemTypes.LIST,
+      trackBy: list => list.id,
+      hover: item => {
+          this.tree = this.moveList(item);
+      },
+      drop: item => {
+          this.tree = this.savedTree = this.moveList(item);
+      },
+      endDrag: _item => {
+          this.tree = this.savedTree;
+      },
+  };
 
-    moveCard(item: DraggedItem<Card>) {
-        return produce(this.savedTree, draft => {
-            const { listId: from, index: fromIndex } = item;
-            const { listId: to, index: toIndex } = item.hover;
-            console.info('from', from, fromIndex, 'to', to, toIndex);
-            let fromList = draft.find(x => x.id === from);
-            let toList = draft.find(x => x.id === to);
-            if (!fromList) return;
-            if (item.isInternal) {
-                fromList.cards.splice(fromIndex, 1);
-            }
-            if (!toList) return;
-            let neu = {
-                ...item.data,
-                listId: to,
-            }
-            toList.cards.splice(toIndex, 0, neu);
-        });
-    }
+  moveCard(item: DraggedItem<Card>) {
+    return produce(this.savedTree, draft => {
+      const { listId: from, index: fromIndex } = item;
+      const { listId: to, index: toIndex } = item.hover;
+      console.info('from', from, fromIndex, 'to', to, toIndex);
+      let fromList = draft.find(x => x.id === from);
+      let toList = draft.find(x => x.id === to);
+      if (!fromList) return;
+      if (item.isInternal) {
+          fromList.cards.splice(fromIndex, 1);
+      }
+      if (!toList) return;
+      let neu = {
+          ...item.data,
+          listId: to,
+      }
+        toList.cards.splice(toIndex, 0, neu);
+    });
+  }
 
-    listSpec: SortableSpec<Card> = {
-        type: ItemTypes.CARD,
-        trackBy: card => card.id,
-        hover: item => {
-            this.tree = this.moveCard(item);
-        },
-        drop: item => {
-            this.tree = this.savedTree = this.moveCard(item);
-        },
-        endDrag: _item => {
-            this.tree = this.savedTree;
-        },
-    };
+  // tslint:disable-next-line: member-ordering
+  listSpec: SortableSpec<Card> = {
+      type: ItemTypes.CARD,
+      trackBy: card => card.id,
+      hover: item => {
+          this.tree = this.moveCard(item);
+      },
+      drop: item => {
+          this.tree = this.savedTree = this.moveCard(item);
+      },
+      endDrag: _item => {
+          this.tree = this.savedTree;
+      },
+  };
 
 }
 

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Card } from '../specs';
+import { CardSchema } from '../cardschema';
 
 @Component({
   selector: 'app-card',
@@ -7,9 +8,7 @@ import { Card } from '../specs';
   styleUrls: ['./card.component.scss']
 })
 export class CardComponent implements OnInit {
-  @Input() card: Card;
-  @Input() preview = false;
-  @Input() placeholder = false;
+  @Input() card: CardSchema;
 
   constructor() { }
 

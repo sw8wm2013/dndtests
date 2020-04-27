@@ -1,11 +1,9 @@
-<div class="list"
-  [class.list--preview]="preview"
->
-  <h3 class="list_title"><strong>Hi</strong></h3>
-  <div>
-    <!-- <app-card *ngFor="let card of list.cards; let i = index; trackBy: trackById"
-    [card]="card"> -->
-    <app-card>
-  </app-card>
-  </div>
+<div class="list">
+	<p class="list__title"><strong>{{list.name}}</strong></p>
+	<div class="cards">
+		<app-card *ngFor="let cardId of list.cards" [card]="cardStore.getCard(cardId)"></app-card>
+	</div>
+
+	<input #addCardInput type="text" (keyup.enter)="onEnter(addCardInput.value); addCardInput.value=''; displayAddCard=false;" *ngIf="displayAddCard" autofocus>
+	<a href="#" class="list__newcard" (click)="toggleDisplayAddCard();">Add a card...</a>
 </div>

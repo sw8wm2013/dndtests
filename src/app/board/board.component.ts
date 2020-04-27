@@ -1,6 +1,9 @@
-import { SortableSpecService, CardList, CardTree, tree } from './../specs';
+import { SortableSpecService, CardList, CardTree } from './../specs';
 import { Component, OnInit } from '@angular/core';
 import { ItemTypes } from "../item-types";
+import { SpecResult } from 'protractor/built/plugins';
+import { CardStore } from '../cardstore';
+import { ListSchema } from '../listschema';
 
 
 @Component({
@@ -10,19 +13,36 @@ import { ItemTypes } from "../item-types";
 })
 export class BoardComponent implements OnInit {
   ItemTypes = ItemTypes;
-  lists: tree; // NEED TO IMPORT THE INITAL TREE FROM THE SPEC
+  cardStore: CardStore;
+  lists: ListSchema[];
 
-  ngOnInit(){
-    console.log('BOARD LISTS', this.lists);
-  }
   constructor(public specs: SortableSpecService) { }
 
-  addCard(listId: number, title: string) {
-      // this.store.dispatch(new AddCard(listId, title));
+  setMockData(): void {
+    this.cardStore = new CardStore();
+    const lists: ListSchema[] = [
+      {
+        listId: 1,
+        name: 'To Do',
+        cards: []
+      },
+      {
+        listId: 2,
+        name: 'Doing',
+        cards: []
+      },
+      {
+        listId: 3,
+        name: 'Done',
+        cards: []
+      }
+    ]
+    this.lists = lists;
   }
 
-  // removeCard(ev: DraggedItem<Card>) {
-  //     // this.store.dispatch(new RemoveCard(ev));
-  // }
+  ngOnInit(){
+    this.setMockData();
+  }
+
 
 }

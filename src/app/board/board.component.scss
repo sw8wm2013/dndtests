@@ -1,15 +1,14 @@
 
-.app-root {
-    background: blue;
-    flex: 1; // within parent
-    display: flex; // for showing lists horizontally
+.board {
+    flex: 1;
+    display: flex;
     min-height: 500px;
     overflow-x: scroll;
     padding: 8px;
     justify-content: flex-start;
 }
 
-.app-root>* {
+.board>* {
     margin-right: 8px;
 }
 
