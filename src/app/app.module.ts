@@ -1,4 +1,4 @@
-import { SortableSpecService } from './specs';
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { CommonModule } from "@angular/common";
@@ -13,7 +13,6 @@ import { AppComponent } from './app.component';
 import { BoardComponent } from './board/board.component';
 import { CardComponent } from './card/card.component';
 import { ListComponent } from './list/list.component';
-import { AddCardComponent } from './add-card/add-card.component';
 
 
 @NgModule({
@@ -22,7 +21,6 @@ import { AddCardComponent } from './add-card/add-card.component';
     BoardComponent,
     CardComponent,
     ListComponent,
-    AddCardComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +30,7 @@ import { AddCardComponent } from './add-card/add-card.component';
     SkyhookSortableModule,
     ReactiveFormsModule,
   ],
-  providers: [SortableSpecService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
