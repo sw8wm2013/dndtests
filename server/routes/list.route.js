@@ -7,6 +7,7 @@ let List = require('../models/list');
 
 // Add List
 listRoute.route('/create').post((req, res, next) =>{
+  console.log('CREATE REQ BODY', req.body);
   List.create(req.body, (error, data)=>{
     if (error){
       return next(error)

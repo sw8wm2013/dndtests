@@ -1,6 +1,9 @@
 <div class="board">
   <div class="add-new-list">
-    Add New List
+    <button class="btn btn-primary" (click)="toggleNewListInput()">
+      Add New List
+    </button>
   </div>
-  <app-list></app-list>
+  <app-create-board [showForm]="showForm"></app-create-board>
+  <app-list [showForm]="showForm"></app-list>
 </div>

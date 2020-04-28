@@ -1,0 +1,16 @@
+<div *ngIf="showForm" class="row justify-content-center">
+  <div class="col-md-4 create-board">
+    <div clas="list-body">
+      <form [formGroup]="listForm" (ngSubmit)="addNewList()">
+        <div class="form-group">
+          <label for="inputName">Name</label>
+          <input class="form-control" type="text" formControlName="name">
+          <div class="invalid-feedback" *ngIf="submitted && myForm.name.errors?.requried">A name for the list is required</div>
+        </div>
+        <div class="formGroup">
+          <button class="btn btn-success" type="submit">Add. This. List.</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

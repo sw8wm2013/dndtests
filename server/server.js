@@ -19,7 +19,7 @@ mongoose.connect(dbConfig.db, {
 )
 
 // Setting up port with express js
-
+const listRoute = require('../server/routes/list.route')
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -28,6 +28,7 @@ app.use(bodyParser.urlencoded({
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'dist/cardboard-sandbox')));
 app.use('/', express.static(path.join(__dirname, 'dist/cardboard-sandbox')));
+app.use('/api', listRoute)
 
 
 // Create port
@@ -38,7 +39,7 @@ const server = app.listen(port, () => {
 
 // Find 404 and hand over to error handler
 app.use((req, res, next) => {
-   next(createError(404));
+   next();
 });
 
 // error handler

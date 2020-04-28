@@ -7,9 +7,7 @@ let List = new Schema ({
   name: String,
   date_created: Number,
   position: Number,
-  cards: {
-    type: Array,
-  }
+  cards: []
 }, {
     collection: 'lists'
   }

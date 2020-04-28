@@ -1,0 +1,68 @@
+import { ListService } from './../list/list.service';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { List } from '../list/list';
+
+@Component({
+  selector: 'app-create-board',
+  templateUrl: './create-board.component.html',
+  styleUrls: ['./create-board.component.scss']
+})
+export class CreateBoardComponent implements OnInit {
+  submitted: boolean = false;
+  listForm: FormGroup;
+  lists: List[];
+
+  @Input() showForm: boolean;
+  // tslint:disable-next-line: no-output-on-prefix
+  @Output()
+  public onAddList: EventEmitter<List>;
+
+
+  constructor(
+    public fb: FormBuilder,
+    private listService: ListService,
+  ) {
+    this.mainForm();
+    this.onAddList = new EventEmitter();
+   }
+
+  ngOnInit(): void {
+  }
+
+  mainForm(){
+    this.listForm = this.fb.group({
+      name:['', [Validators.required]],
+    })
+  }
+
+  get myForm(){
+    return this.listForm.controls;
+  }
+
+  generateRandomId(){
+    let randomId = Math.floor((Math.random() * 200000000) + 1);
+    console.log('RANDOM NUMBER', randomId);
+    return randomId;
+  }
+
+  addNewList(){
+    this.submitted = true;
+    if(!this.listForm.valid){
+      return false;
+    } else {
+      const newList: List = {
+        _id: this.generateRandomId(),
+        name: this.listForm.value.name,
+        position: 0,
+      };
+      console.log('NEW LIST', newList);
+      this.listService.createNewList(newList)
+      .subscribe(list =>{
+        this.onAddList.emit(list);
+      })
+    }
+    }
+
+
+}

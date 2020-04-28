@@ -1,6 +1,7 @@
 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule} from '@angular/common/http';
 import { CommonModule } from "@angular/common";
 import { SkyhookDndModule } from "@angular-skyhook/core";
 import { RouterModule } from "@angular/router";
@@ -13,6 +14,8 @@ import { AppComponent } from './app.component';
 import { BoardComponent } from './board/board.component';
 import { CardComponent } from './card/card.component';
 import { ListComponent } from './list/list.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CreateBoardComponent } from './create-board/create-board.component';
 
 
 @NgModule({
@@ -21,6 +24,7 @@ import { ListComponent } from './list/list.component';
     BoardComponent,
     CardComponent,
     ListComponent,
+    CreateBoardComponent,
   ],
   imports: [
     BrowserModule,
@@ -29,6 +33,8 @@ import { ListComponent } from './list/list.component';
     SkyhookMultiBackendModule,
     SkyhookSortableModule,
     ReactiveFormsModule,
+    NgbModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

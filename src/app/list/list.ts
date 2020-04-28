@@ -4,5 +4,5 @@ export class List {
   _id: number;
   name: string;
   position: number;
-  cards: Card[];
+  cards?: Card[];
 }
