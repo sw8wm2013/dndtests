@@ -9,7 +9,7 @@ import { Observable, throwError} from 'rxjs';
   providedIn: 'root'
 })
 export class ListService {
-  baseUri: string = 'http://localhost:4000/api';
+  baseUri: string = 'http://localhost:4000';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
   apiUrl: string = '/list';
 
@@ -23,8 +23,8 @@ export class ListService {
       catchError(this.errorMgmt)
     )
     .pipe(
-      map((data) => console.log('RETURNED LISTS', data))
-    )
+      map((data) => data as List)
+    );
   }
 
   createNewList(list: List): Observable<any>{

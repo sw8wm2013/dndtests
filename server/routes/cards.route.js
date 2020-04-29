@@ -12,7 +12,6 @@ cardRoute.route('/createNewCard').post((req, res, next) =>{
     if (error){
       return next(error)
     } else {
-      console.log('Successfully created the Card', res);
       res.json(data)
     }
   })
@@ -20,7 +19,6 @@ cardRoute.route('/createNewCard').post((req, res, next) =>{
 
 // get all Cards
 cardRoute.route('/retrieveAllCards').get((req, res) =>{
-  console.log('********INSIDE THE ROUTE', req.body);
   Card.find((error, data)=>{
     if(error){
       return next(error)
@@ -33,9 +31,9 @@ cardRoute.route('/retrieveAllCards').get((req, res) =>{
 
 // get Cards for specific board
 cardRoute.route('/reteriveCardsByList/:listId').get((req, res) =>{
-  Card.find({"currentList": req.params.listId}, (error, data)=>{
+  Card.find({"currentList": req.params.listId}, (error, data,)=>{
     if(error){
-      return next(error)
+      return error
     } else {
       console.log('Returning the data', data);
       res.json(data)

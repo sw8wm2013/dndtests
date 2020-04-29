@@ -13,7 +13,8 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
   styleUrls: ['./board.component.scss']
 })
 export class BoardComponent implements OnInit {
-  lists: List[];
+  defaultLists: List[];
+  lists: List[] = [];
   showForm: boolean = false;
 
   addListText: string;
@@ -32,30 +33,40 @@ export class BoardComponent implements OnInit {
 
   ngOnInit(){
     console.log('GET THE LISTS!');
-    this.setDefaultLists();
-
-  }
-
-  setDefaultLists(): void {
-    const lists: List[] = [
-      {
-        listId: 1,
-        name: 'To Do',
-        cards: [],
-      },
-      {
-        listId: 2,
-        name: 'Doing',
-        cards: [],
-      },
-      {
-        listId: 3,
-        name: 'Done',
-        cards: [],
+    // this.setDefaultLists();
+    this._listService.getAllLists()
+      .subscribe((data) =>{
+        data.forEach(list => {this.lists.push(list)
+        });
       }
-    ]
-    this.lists = lists;
+
+      )
+
   }
+
+  // setDefaultLists(): void {
+  //   const lists: List[] = [
+  //     {
+  //       listId: 1,
+  //       name: 'To Do',
+  //       cards: [],
+  //       position_on_board: 1,
+  //     },
+  //     {
+  //       listId: 2,
+  //       name: 'Doing',
+  //       cards: [],
+  //       position_on_board: 2,
+  //     },
+  //     {
+  //       listId: 3,
+  //       name: 'Done',
+  //       cards: [],
+  //       position_on_board:3,
+  //     }
+  //   ]
+  //   this.defaultLists = lists;
+  // }
 
   openDialog(){
     const dialogConfig = new MatDialogConfig();
@@ -66,7 +77,10 @@ export class BoardComponent implements OnInit {
       id: 1,
       title: 'Name of New List'
     }
-    this.dialog.open(CreateBoardComponent, dialogConfig)
+   let dialogRef =  this.dialog.open(CreateBoardComponent, dialogConfig);
+
+   dialogRef.afterClosed().subscribe((data) => this.lists.push(data))
+
 
   }
   toggleNewListInput(){

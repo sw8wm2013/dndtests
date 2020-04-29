@@ -6,7 +6,7 @@ let List = new Schema ({
   id: Number,
   name: String,
   date_created: Number,
-  position: Number,
+  position_on_bard: Number,
   cards: []
 }, {
     collection: 'lists'

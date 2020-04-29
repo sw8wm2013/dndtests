@@ -44,6 +44,7 @@ export class CardService {
   }
 
   createNewCard(card: Card): Observable<any>{
+    console.log('Creating card?', card);
     const url = `${this.baseUri}/createNewCard`;
     return this.http.post(url, card)
     .pipe(

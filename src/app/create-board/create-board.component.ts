@@ -65,6 +65,7 @@ export class CreateBoardComponent implements OnInit {
       .subscribe(data =>{
         console.log('CREATED NEW LIST?', data);
         this.onAddList.emit(data);
+        this.dialogRef.close(data);
       })
     }
     }
