@@ -1,3 +1,4 @@
+import { ItemTypes } from './../item-types';
 import { CreateBoardComponent } from './../create-board/create-board.component';
 import { ListService } from './../list/list.service';
 
@@ -16,6 +17,7 @@ export class BoardComponent implements OnInit {
   defaultLists: List[];
   lists: List[] = [];
   showForm: boolean = false;
+  ItemTypes = ItemTypes;
 
   addListText: string;
   // tslint:disable-next-line: no-output-on-prefix

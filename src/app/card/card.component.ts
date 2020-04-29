@@ -9,6 +9,7 @@ import { Card } from './card';
 })
 export class CardComponent implements OnInit {
  @Input() card: Card;
+ @Input() preview: boolean = false;
 
   constructor( private cardService: CardService) { }
 
