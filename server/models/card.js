@@ -3,15 +3,14 @@ const Schema = mongoose.Schema;
 
 
 let Card = new Schema ({
-  listId: Number,
-  id: Number,
+  currentList: Number,
+  title: String,
   description: String,
-  date_created: Number,
-  position: Number,
+  position_on_board: Number,
 }, {
     collection: 'cards'
   }
 )
 
 
-module.exports = mongoose.model('Card', card)
+module.exports = mongoose.model('Card', Card)

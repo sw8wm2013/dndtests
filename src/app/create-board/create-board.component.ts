@@ -49,11 +49,6 @@ export class CreateBoardComponent implements OnInit {
     return this.listForm.controls;
   }
 
-  // generateRandomId(){
-  //   let randomId = Math.floor((Math.random() * 200000000) + 1);
-  //   console.log('RANDOM NUMBER', randomId);
-  //   return randomId;
-  // }
 
   addNewList(){
     this.submitted = true;

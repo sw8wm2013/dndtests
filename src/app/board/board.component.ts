@@ -49,7 +49,7 @@ export class BoardComponent implements OnInit {
         cards: [],
       },
       {
-        listId: 2,
+        listId: 3,
         name: 'Done',
         cards: [],
       }

@@ -18,6 +18,7 @@ import { ListComponent } from './list/list.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CreateBoardComponent } from './create-board/create-board.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
     MatDialogModule,
     BrowserAnimationsModule,
+    FontAwesomeModule,
   ],
   providers: [{
     provide: MatDialogRef,

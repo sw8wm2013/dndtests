@@ -20,6 +20,7 @@ mongoose.connect(dbConfig.db, {
 
 // Setting up port with express js
 const listRoute = require('../server/routes/list.route')
+const cardRoute = require('../server/routes/cards.route')
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -28,7 +29,8 @@ app.use(bodyParser.urlencoded({
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'dist/cardboard-sandbox')));
 app.use('*', express.static(path.join(__dirname, 'dist/cardboard-sandbox')));
-app.use('/api', listRoute)
+app.use('/', listRoute)
+app.use('/', cardRoute)
 
 
 // Create port

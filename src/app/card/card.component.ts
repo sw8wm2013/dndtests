@@ -1,4 +1,6 @@
+import { CardService } from './card.service';
 import { Component, OnInit, Input } from '@angular/core';
+import { Card } from './card';
 
 @Component({
   selector: 'app-card',
@@ -6,11 +8,16 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./card.component.scss']
 })
 export class CardComponent implements OnInit {
- @Input() showForm: boolean;
+ @Input() card: Card;
 
-  constructor() { }
+  constructor( private cardService: CardService) { }
 
   ngOnInit(): void {
+
   }
 
+  deleteCard(){
+    console.log('CARD ID', this.card._id);
+    this.cardService.deleteCard(this.card._id)
+  }
 }
