@@ -1,7 +1,8 @@
 import { ListService } from './../list/list.service';
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { List } from '../list/list';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-create-board',
@@ -12,6 +13,7 @@ export class CreateBoardComponent implements OnInit {
   submitted: boolean = false;
   listForm: FormGroup;
   lists: List[];
+  description: string;
 
   @Input() showForm: boolean;
   // tslint:disable-next-line: no-output-on-prefix
@@ -22,13 +24,20 @@ export class CreateBoardComponent implements OnInit {
   constructor(
     public fb: FormBuilder,
     private listService: ListService,
-  ) {
+    private dialogRef: MatDialogRef<CreateBoardComponent>,
+    @Inject(MAT_DIALOG_DATA) data)
+   {
     this.mainForm();
     this.onAddList = new EventEmitter();
+    this.description = data.description;
    }
 
   ngOnInit(): void {
+    // this.listForm = this.fb.group({
+    //   name:['', [Validators.required]],
+    // })
   }
+
 
   mainForm(){
     this.listForm = this.fb.group({
@@ -40,11 +49,11 @@ export class CreateBoardComponent implements OnInit {
     return this.listForm.controls;
   }
 
-  generateRandomId(){
-    let randomId = Math.floor((Math.random() * 200000000) + 1);
-    console.log('RANDOM NUMBER', randomId);
-    return randomId;
-  }
+  // generateRandomId(){
+  //   let randomId = Math.floor((Math.random() * 200000000) + 1);
+  //   console.log('RANDOM NUMBER', randomId);
+  //   return randomId;
+  // }
 
   addNewList(){
     this.submitted = true;
@@ -52,16 +61,22 @@ export class CreateBoardComponent implements OnInit {
       return false;
     } else {
       const newList: List = {
-        _id: this.generateRandomId(),
+        // _id: this.generateRandomId(),
         name: this.listForm.value.name,
         position: 0,
       };
       console.log('NEW LIST', newList);
+      this.dialogRef.close(this.listForm.value)
       this.listService.createNewList(newList)
-      .subscribe(list =>{
-        this.onAddList.emit(list);
+      .subscribe(data =>{
+        console.log('CREATED NEW LIST?', data);
+        this.onAddList.emit(data);
       })
     }
+    }
+
+    close(){
+      this.dialogRef.close()
     }
 
 

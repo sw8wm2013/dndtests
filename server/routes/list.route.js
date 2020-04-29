@@ -12,6 +12,7 @@ listRoute.route('/create').post((req, res, next) =>{
     if (error){
       return next(error)
     } else {
+      console.log('Successfully created the list', res);
       res.json(data)
     }
   })
@@ -19,10 +20,12 @@ listRoute.route('/create').post((req, res, next) =>{
 
 // get all Lists
 listRoute.route('/').get((req, res) =>{
+  console.log('********INSIDE THE ROUTE', req);
   List.find((error, data)=>{
     if(error){
       return next(error)
     } else {
+      console.log('Returning the data', data);
       res.json(data)
     }
   })

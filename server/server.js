@@ -27,7 +27,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'dist/cardboard-sandbox')));
-app.use('/', express.static(path.join(__dirname, 'dist/cardboard-sandbox')));
+app.use('*', express.static(path.join(__dirname, 'dist/cardboard-sandbox')));
 app.use('/api', listRoute)
 
 

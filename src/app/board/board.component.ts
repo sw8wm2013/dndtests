@@ -1,8 +1,10 @@
+import { CreateBoardComponent } from './../create-board/create-board.component';
 import { ListService } from './../list/list.service';
 
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { List } from '../list/list';
 import { Card } from '../card/card';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
 
 @Component({
@@ -21,17 +23,30 @@ export class BoardComponent implements OnInit {
 
   constructor(
     private _listService: ListService,
+    private dialog: MatDialog
   ) {
     this.onAddList = new EventEmitter();
   }
 
 
   ngOnInit(){
-
+    console.log('GET THE LISTS!');
+    this._listService.getAllLists();
   }
 
-  toggleNewListInput(){
+  openDialog(){
+    const dialogConfig = new MatDialogConfig();
 
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data= {
+      id: 1,
+      title: 'Name of New List'
+    }
+    this.dialog.open(CreateBoardComponent, dialogConfig)
+
+  }
+  toggleNewListInput(){
     this.showForm = !this.showForm;
     console.log('Add new list has been clicked', this.showForm );
 

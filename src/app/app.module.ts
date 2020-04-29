@@ -1,4 +1,4 @@
-
+import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule} from '@angular/common/http';
@@ -10,12 +10,14 @@ import { SkyhookMultiBackendModule } from "@angular-skyhook/multi-backend";
 import { SkyhookSortableModule } from "@angular-skyhook/sortable";
 
 
+
 import { AppComponent } from './app.component';
 import { BoardComponent } from './board/board.component';
 import { CardComponent } from './card/card.component';
 import { ListComponent } from './list/list.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CreateBoardComponent } from './create-board/create-board.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -35,8 +37,18 @@ import { CreateBoardComponent } from './create-board/create-board.component';
     ReactiveFormsModule,
     NgbModule,
     HttpClientModule,
+    MatDialogModule,
+    BrowserAnimationsModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [{
+    provide: MatDialogRef,
+    useValue: {}
+  },
+  {
+    provide:MAT_DIALOG_DATA,
+    useValue:{}
+  }],
+  bootstrap: [AppComponent],
+  entryComponents: [CreateBoardComponent]
 })
 export class AppModule { }

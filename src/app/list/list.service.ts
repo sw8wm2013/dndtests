@@ -15,6 +15,18 @@ export class ListService {
 
   constructor( private _http: HttpClient) { }
 
+  getAllLists(): Observable<any>{
+    console.log('getting the lists in the service');
+    const url = `${this.baseUri}`;
+    return this._http.get(url)
+    .pipe(
+      catchError(this.errorMgmt)
+    )
+    .pipe(
+      map((data) => console.log('RETURNED LISTS', data))
+    )
+  }
+
   createNewList(list: List): Observable<any>{
     console.log('CREATE NEW LIST INCOMING LIST', list);
     const url = `${this.baseUri}/create`;
@@ -24,6 +36,8 @@ export class ListService {
     )
     .pipe(
       map((data) => data as List)
+      // map((data) => console.log(data))
+
     )
   }
 
