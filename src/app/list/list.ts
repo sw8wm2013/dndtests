@@ -1,8 +1,7 @@
 import { Card } from '../card/card';
 
 export class List {
-  _id?: number;
+  listId?: number;
   name: string;
-  position: number;
   cards?: Card[];
 }

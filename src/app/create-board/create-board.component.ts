@@ -63,7 +63,6 @@ export class CreateBoardComponent implements OnInit {
       const newList: List = {
         // _id: this.generateRandomId(),
         name: this.listForm.value.name,
-        position: 0,
       };
       console.log('NEW LIST', newList);
       this.dialogRef.close(this.listForm.value)

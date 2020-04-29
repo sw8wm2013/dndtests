@@ -17,8 +17,8 @@ export class ListService {
 
   getAllLists(): Observable<any>{
     console.log('getting the lists in the service');
-    const url = `${this.baseUri}`;
-    return this._http.get(url)
+    const url = `${this.baseUri}/getlists`;
+    return this._http.get<{}>(url)
     .pipe(
       catchError(this.errorMgmt)
     )

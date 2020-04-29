@@ -19,7 +19,7 @@ listRoute.route('/create').post((req, res, next) =>{
 })
 
 // get all Lists
-listRoute.route('/').get((req, res) =>{
+listRoute.route('/getlists').get((req, res) =>{
   console.log('********INSIDE THE ROUTE', req);
   List.find((error, data)=>{
     if(error){

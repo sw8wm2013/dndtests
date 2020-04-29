@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { List } from './list';
 
 
 @Component({
@@ -7,7 +8,9 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit {
-  @Input() showForm: boolean;
+  @Input() list: List;
+  displayAddCard = false;
+
 
   constructor() { }
 

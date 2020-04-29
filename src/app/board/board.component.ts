@@ -26,12 +26,35 @@ export class BoardComponent implements OnInit {
     private dialog: MatDialog
   ) {
     this.onAddList = new EventEmitter();
+    this._listService.getAllLists();
   }
 
 
   ngOnInit(){
     console.log('GET THE LISTS!');
-    this._listService.getAllLists();
+    this.setDefaultLists();
+
+  }
+
+  setDefaultLists(): void {
+    const lists: List[] = [
+      {
+        listId: 1,
+        name: 'To Do',
+        cards: [],
+      },
+      {
+        listId: 2,
+        name: 'Doing',
+        cards: [],
+      },
+      {
+        listId: 2,
+        name: 'Done',
+        cards: [],
+      }
+    ]
+    this.lists = lists;
   }
 
   openDialog(){
