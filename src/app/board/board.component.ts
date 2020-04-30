@@ -1,11 +1,16 @@
+import { RemoveCard } from './../store';
+import { CardService } from './../card/card.service';
+import { SortableSpecService } from './../specs';
 import { ItemTypes } from './../item-types';
 import { CreateBoardComponent } from './../create-board/create-board.component';
 import { ListService } from './../list/list.service';
 
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Optional } from '@angular/core';
 import { List } from '../list/list';
 import { Card } from '../card/card';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { AddCard } from '../store';
+import { DraggedItem, SkyhookSortableRenderer } from '@angular-skyhook/sortable';
 
 
 @Component({
@@ -26,12 +31,24 @@ export class BoardComponent implements OnInit {
 
   constructor(
     private _listService: ListService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    public specs: SortableSpecService,
+    private cardService: CardService,
+    private listService: ListService,
+    @Optional() public render: SkyhookSortableRenderer<List>,
+
   ) {
     this.onAddList = new EventEmitter();
     this._listService.getAllLists();
   }
 
+  addCard(listId: number, title: string){
+    new AddCard(listId, title)
+  }
+
+  removeCard(ev: DraggedItem<Card>){
+    new RemoveCard(ev);
+  }
 
   ngOnInit(){
     console.log('GET THE LISTS!');

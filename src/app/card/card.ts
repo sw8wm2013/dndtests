@@ -3,5 +3,8 @@ export class Card {
   currentList: number;
   title: string;
   description ?: string;
-  position_on_board: number;
+  position_on_board?: number;
+  isCopy ?: boolean;
 }
+
+export type Cards = ReadonlyArray<Card>;

@@ -12,6 +12,7 @@ import { Card } from '../card/card';
 export class ListComponent implements OnInit {
   @Input() list: List;
   @Input() preview: boolean = false;
+  @Input() placeholder: boolean = false;
   cards: Card[] = [];
   displayAddCard = false;
 

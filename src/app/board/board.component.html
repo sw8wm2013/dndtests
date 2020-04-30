@@ -16,16 +16,51 @@
     Add New List
   </button>
 </div>
+
 <skyhook-sortable-list class="board"
-  [ssSortableListId]="lists._id"
-  [ssSortableHorizontal]= "true">
+[ssSortableListId]
+[ssSortableChildren]="specs.lists"
+[ssSortableSpec]="specs.boardSpec"
+ssSortableTrigger="fixed"
+[ssSortableHorizontal]="true"
+>
   <ng-template ssTemplate let-context>
     <app-list
     [ssRender]="context"
     [list]="context.data"
+    (addCard)="addCard(context.data.id, $event)"
     ></app-list>
-    <!-- <app-list *ngFor="let list of lists" [list]="list"></app-list> -->
-
   </ng-template>
-  <!-- </div> -->
+
+
 </skyhook-sortable-list>
+
+<!-- <div *ngIf="render; else  plain"
+  class= "board"
+  ssSortable
+  [ssSortableSpec]="specs.boardSpec"
+  [ssSortableListId]
+  #clist="ssSortable"
+  >
+  <app-list
+  *ngFor="let list of lists
+  let i = index
+  ";
+  [list] = "list"
+  [ssRender]="clist.contextFor(list, i)"
+  #render="ssRender"
+  [dragSource]="render.source"
+  [noHTML5Preview]="true"
+  [placeholder]="render.isDragging$|async"
+  >
+  </app-list>
+</div>
+<ng-template #plain>
+  <div class="board">
+    <app-list
+    *ngFor="let list of lists; let i = index"
+    [list]="list">
+
+    </app-list>
+  </div>
+</ng-template> -->
