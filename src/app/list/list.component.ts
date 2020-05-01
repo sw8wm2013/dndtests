@@ -22,7 +22,7 @@ export class ListComponent implements OnInit {
   constructor(
     private cardService: CardService,
     public specs: SortableSpecService,
-    @Optional() public render: SkyhookSortableRenderer<List>
+    @Optional() public render: SkyhookSortableRenderer<Card>
   ) { }
 
   trackById = (_: any, x: Card) =>  x._id;
@@ -51,6 +51,10 @@ export class ListComponent implements OnInit {
       data.forEach(card => {this.cards.push(card);
       });
     });
+  }
+
+  clickingTest(){
+    console.log('CLICKED');
   }
 
 

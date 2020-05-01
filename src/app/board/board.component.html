@@ -34,9 +34,9 @@ ssSortableTrigger="fixed"
 
 <div clas="board">
   <div *ngIf="render; else plain"
-  class="list"
+  class="board"
   ssSortable
-  [ssSortableSpec]="specs.boardSpec"
+  [ssSortableSpec]="specs.listSpec"
   [ssSortableListId]
   [ssSortableHorizontal]="true"
   #clist="ssSortable">

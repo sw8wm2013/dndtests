@@ -21,6 +21,7 @@ import { DraggedItem, SkyhookSortableRenderer } from '@angular-skyhook/sortable'
 export class BoardComponent implements OnInit {
   defaultLists: List[];
   lists: List[] = [];
+  list: List;
   showForm: boolean = false;
   ItemTypes = ItemTypes;
 
@@ -29,7 +30,8 @@ export class BoardComponent implements OnInit {
   @Output()
   public onAddList: EventEmitter<List>;
 
-  placeholder$ = this.render && this.render.source.listen(m => m.isDragging());
+  // placeholder$ = this.render && this.render.source.listen(m => m.isDragging());
+  placeholder$ = this.render && this.render.source.listen(m => console.log(m));
   isOver$ = this.render && this.render.target.listen(m => m.canDrop() && m.isOver());
 
   constructor(
@@ -38,55 +40,24 @@ export class BoardComponent implements OnInit {
     public specs: SortableSpecService,
     private cardService: CardService,
     private listService: ListService,
-    @Optional() public render: SkyhookSortableRenderer<List>,
+    @Optional() public render ?: SkyhookSortableRenderer<List>,
 
   ) {
     this.onAddList = new EventEmitter();
     this._listService.getAllLists();
+    console.log('Render', render);
   }
 
   trackById = (_: any, x: List) =>  x._id;
-  // addCard(listId: number, title: string){
-  //   new AddCard(listId, title)
-  // }
 
-  // removeCard(ev: DraggedItem<Card>){
-  //   new RemoveCard(ev);
-  // }
 
   ngOnInit(){
-    console.log('SPECS LIST', this.specs.boardSpec);
-    // this.setDefaultLists();
-    this._listService.getAllLists()
-      .subscribe((data) =>{
-        data.forEach(list => {this.lists.push(list)
-        });
+    this.listService.getAllLists()
+      .subscribe((data) =>{data.forEach(list => {this.lists.push(list)});
       })
   }
 
-  // setDefaultLists(): void {
-  //   const lists: List[] = [
-  //     {
-  //       listId: 1,
-  //       name: 'To Do',
-  //       cards: [],
-  //       position_on_board: 1,
-  //     },
-  //     {
-  //       listId: 2,
-  //       name: 'Doing',
-  //       cards: [],
-  //       position_on_board: 2,
-  //     },
-  //     {
-  //       listId: 3,
-  //       name: 'Done',
-  //       cards: [],
-  //       position_on_board:3,
-  //     }
-  //   ]
-  //   this.defaultLists = lists;
-  // }
+
 
   openDialog(){
     const dialogConfig = new MatDialogConfig();
@@ -96,19 +67,18 @@ export class BoardComponent implements OnInit {
     dialogConfig.data= {
       id: 1,
       title: 'Name of New List'
-    }
-   let dialogRef =  this.dialog.open(CreateBoardComponent, dialogConfig);
+    };
+   const dialogRef =  this.dialog.open(CreateBoardComponent, dialogConfig);
 
-  //  dialogRef.afterClosed().subscribe((data) => this.lists.push(data))
+  //  dialogRef.afterClosed().subscribe((data) => this.lists.push;(data))
    dialogRef.afterClosed().subscribe((data) => console.log(data))
-
-
   }
+
   toggleNewListInput(){
     this.showForm = !this.showForm;
     console.log('Add new list has been clicked', this.showForm );
-
   }
+
 
 
 }

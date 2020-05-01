@@ -9,7 +9,7 @@ import { SkyhookDndModule } from "@angular-skyhook/core";
 import { RouterModule } from "@angular/router";
 import { ReactiveFormsModule } from "@angular/forms";
 import { SkyhookMultiBackendModule } from "@angular-skyhook/multi-backend";
-import { SkyhookSortableModule } from "@angular-skyhook/sortable";
+import { SkyhookSortableModule} from "@angular-skyhook/sortable";
 import { default as HTML5Backend } from 'react-dnd-html5-backend';
 
 import { AppComponent } from './app.component';
