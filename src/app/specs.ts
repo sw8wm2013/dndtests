@@ -7,7 +7,7 @@ import { SortableSpec } from "@angular-skyhook/sortable";
 
 import { ItemTypes } from './item-types';
 import { Card } from './card/card';
-import { CardboardList, List } from './list/list';
+import { List } from './list/list';
 
 import {produce} from 'immer';
 
@@ -19,20 +19,23 @@ export class SortableSpecService {
     private listService: ListService,
     private cardService: CardService,
     ) {
-      initialList: List[]
+      let initialList: List[] = [];
       this.listService.getAllLists()
       .subscribe(data => data.forEach(list => {
         console.log('IN HERE');
         initialList.push(list)
-        console.log('INITAL LIST NOW', this.initialList);
+        console.log('INITAL LIST NOW', initialList);
       }))
+      this.retrievedLists = initialList
      }
 
 
   retrievedLists = [];
   // private initialList: List[];
-  private savedLists = this.initialList;
-  public lists = this.initialList;
+  private savedLists = this.retrievedLists;
+  public lists = this.retrievedLists;
+
+
 
   moveList(item: DraggedItem<List>){
     return produce(this.lists, draft => {
@@ -82,14 +85,15 @@ export class SortableSpecService {
   listSpec: SortableSpec<Card> = {
     type: ItemTypes.CARD,
     trackBy: card => card._id,
-    hover: item => {this.initialList = this.moveCard(item)},
-    drop: item => {this.initialList = this.savedLists = this.moveCard(item)},
-    endDrag: _item => {this.initialList = this.savedLists},
+    hover: item => {this.retrievedLists = this.moveCard(item)},
+    drop: item => {this.retrievedLists = this.savedLists = this.moveCard(item)},
+    endDrag: _item => {this.retrievedLists = this.savedLists},
   };
 
 
       // tslint:disable-next-line: contextual-lifecycle
       ngOnInit(){
+        // console.log('LISTS', this.lists);
         // this.listService.getAllLists()
         // .subscribe(data => data.forEach(list => {
         //   console.log('IN HERE');

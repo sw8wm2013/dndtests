@@ -1,5 +1,7 @@
+import { SkyhookSortableRenderer } from '@angular-skyhook/sortable';
+import { SortableSpecService } from './../specs';
 import { CardService } from './../card/card.service';
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, Optional } from '@angular/core';
 import { List } from './list';
 import { Card } from '../card/card';
 
@@ -18,8 +20,12 @@ export class ListComponent implements OnInit {
 
 
   constructor(
-    private cardService: CardService
+    private cardService: CardService,
+    public specs: SortableSpecService,
+    @Optional() public render: SkyhookSortableRenderer<List>
   ) { }
+
+  trackById = (_: any, x: Card) =>  x._id;
 
   onEnter(value: string) {
     console.log('Value of input', value);

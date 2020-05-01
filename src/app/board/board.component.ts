@@ -1,4 +1,4 @@
-import { RemoveCard } from './../store';
+// import { RemoveCard } from './../store';
 import { CardService } from './../card/card.service';
 import { SortableSpecService } from './../specs';
 import { ItemTypes } from './../item-types';
@@ -9,7 +9,7 @@ import { Component, OnInit, Output, EventEmitter, Optional } from '@angular/core
 import { List } from '../list/list';
 import { Card } from '../card/card';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { AddCard } from '../store';
+// import { AddCard } from '../store';
 import { DraggedItem, SkyhookSortableRenderer } from '@angular-skyhook/sortable';
 
 
@@ -29,6 +29,9 @@ export class BoardComponent implements OnInit {
   @Output()
   public onAddList: EventEmitter<List>;
 
+  placeholder$ = this.render && this.render.source.listen(m => m.isDragging());
+  isOver$ = this.render && this.render.target.listen(m => m.canDrop() && m.isOver());
+
   constructor(
     private _listService: ListService,
     private dialog: MatDialog,
@@ -42,25 +45,23 @@ export class BoardComponent implements OnInit {
     this._listService.getAllLists();
   }
 
-  addCard(listId: number, title: string){
-    new AddCard(listId, title)
-  }
+  trackById = (_: any, x: List) =>  x._id;
+  // addCard(listId: number, title: string){
+  //   new AddCard(listId, title)
+  // }
 
-  removeCard(ev: DraggedItem<Card>){
-    new RemoveCard(ev);
-  }
+  // removeCard(ev: DraggedItem<Card>){
+  //   new RemoveCard(ev);
+  // }
 
   ngOnInit(){
-    console.log('GET THE LISTS!');
+    console.log('SPECS LIST', this.specs.boardSpec);
     // this.setDefaultLists();
     this._listService.getAllLists()
       .subscribe((data) =>{
         data.forEach(list => {this.lists.push(list)
         });
-      }
-
-      )
-
+      })
   }
 
   // setDefaultLists(): void {
@@ -98,7 +99,8 @@ export class BoardComponent implements OnInit {
     }
    let dialogRef =  this.dialog.open(CreateBoardComponent, dialogConfig);
 
-   dialogRef.afterClosed().subscribe((data) => this.lists.push(data))
+  //  dialogRef.afterClosed().subscribe((data) => this.lists.push(data))
+   dialogRef.afterClosed().subscribe((data) => console.log(data))
 
 
   }

@@ -1,7 +1,33 @@
 <div class="list">
   <p class="list_title"><strong>{{list.name}}</strong></p>
   <div class="cards">
-    <app-card *ngFor="let card of cards" [card]="card"></app-card>
+    <div *ngIf="render; else plain"
+    class="cards-container"
+    ssSortable
+    [ssSortableSpec]="specs.listSpec"
+    [ssSortableListId]
+    #clist="ssSortable">
+      <app-card
+      *ngFor="let card of cards;
+              let i = index
+              trackBy: trackById"
+              [card]="card"
+              [ssRender]="clist.contextFor(card, i)"
+              #render="ssRender"
+              [dragSource]="render.source"
+              [noHTML5Preview]="true"
+              [placeholder]="render.isDragging$|async">
+      </app-card>
+    </div>
+    <ng-template #plain>
+      <div class="cards-container">
+        <app-card
+        *ngFor="let card of cards; let i = index; trackBy:trackById"
+        [card]="card"
+        ></app-card>
+      </div>
+    </ng-template>
+
   </div>
   <input #addCardInput type="text" (keyup.enter)="onEnter(addCardInput.value); addCardInput.value=''; displayAddCard=false;" *ngIf="displayAddCard" autofocus>
 	<a href="#" class="list__newcard" (click)="toggleDisplayAddCard();">Add a card...</a>

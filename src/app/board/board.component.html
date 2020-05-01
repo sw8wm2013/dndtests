@@ -9,17 +9,14 @@
   </ng-template>
 </skyhook-preview>
 
-
-<!-- <div class="board"> -->
 <div class="add-new-list">
   <button class="btn btn-primary" (click)="openDialog()">
     Add New List
   </button>
 </div>
 
-<skyhook-sortable-list class="board"
+<!-- <skyhook-sortable-list class="board"
 [ssSortableListId]
-[ssSortableChildren]="specs.lists"
 [ssSortableSpec]="specs.boardSpec"
 ssSortableTrigger="fixed"
 [ssSortableHorizontal]="true"
@@ -28,39 +25,80 @@ ssSortableTrigger="fixed"
     <app-list
     [ssRender]="context"
     [list]="context.data"
-    (addCard)="addCard(context.data.id, $event)"
+
     ></app-list>
   </ng-template>
 
 
-</skyhook-sortable-list>
+</skyhook-sortable-list> -->
 
-<!-- <div *ngIf="render; else  plain"
-  class= "board"
+<div clas="board">
+  <div *ngIf="render; else plain"
+  class="list"
   ssSortable
   [ssSortableSpec]="specs.boardSpec"
   [ssSortableListId]
-  #clist="ssSortable"
-  >
+  [ssSortableHorizontal]="true"
+  #clist="ssSortable">
+  <!-- note the assignment of the ssSortable directive to a template
+      variable, clist, so we can use it below. It can generate the
+      required context for ssRender. -->
+
   <app-list
-  *ngFor="let list of lists
-  let i = index
-  ";
-  [list] = "list"
-  [ssRender]="clist.contextFor(list, i)"
-  #render="ssRender"
-  [dragSource]="render.source"
-  [noHTML5Preview]="true"
-  [placeholder]="render.isDragging$|async"
-  >
+      *ngFor="let list of lists;
+              let i = index;
+              trackBy: trackById"
+      [list]="list"
+      [ssRender]="clist.contextFor(list, i)"
+      #render="ssRender"
+      [dragSource]="render.source"
+      [noHTML5Preview]="true"
+      [placeholder]="render.isDragging$|async">
+      <!-- This time, we aren't doing drag handles, so we just attached
+          render.source directly to kanban-card by pulling #render out.
+          You can do it whichever way suits.
+      -->
   </app-list>
+
 </div>
+
+<!-- A simple version for when we're dragging -->
 <ng-template #plain>
   <div class="board">
-    <app-list
-    *ngFor="let list of lists; let i = index"
-    [list]="list">
-
-    </app-list>
+      <app-list
+          *ngFor="let list of lists; let i = index; trackBy: trackById"
+          [list]="list">
+      </app-list>
   </div>
-</ng-template> -->
+</ng-template>
+  <!-- <div *ngIf="render; else  plain"
+    class= "list"
+    ssSortable
+    [ssSortableSpec]="specs.boardSpec"
+    [ssSortableListId]
+    [ssSortableHorizontal]="true"
+    #clist="ssSortable">
+      <app-list
+      *ngFor="let list of lists
+      let i = index
+      trackBy: trackById";
+      [list] = "list"
+      [ssRender]="clist"
+      #render="ssRender"
+      [dragSource]="render.source"
+      [noHTML5Preview]="true"
+      [placeholder]="render.isDragging$|async"
+      >
+      </app-list>
+
+  </div> -->
+
+  <!-- <ng-template #plain>
+    <div class="board">
+      <app-list
+      *ngFor="let list of lists; let i = index; trackBy: trackById"
+      [list]="list">
+      </app-list>
+    </div>
+  </ng-template>
+</div> -->
