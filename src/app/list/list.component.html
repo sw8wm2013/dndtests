@@ -1,4 +1,6 @@
 <div class="list"
+[class.list--preview]="preview"
+[class.list--placeholder]="render?.isDragging$|async"
 (click)="clickingTest()">
   <p class="list_title"><strong>{{list.name}}</strong></p>
   <div class="cards">
