@@ -9,8 +9,6 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { SkyhookMultiBackendModule } from "@angular-skyhook/multi-backend";
 import { SkyhookSortableModule } from "@angular-skyhook/sortable";
 
-
-
 import { AppComponent } from './app.component';
 import { BoardComponent } from './board/board.component';
 import { CardComponent } from './card/card.component';
@@ -20,6 +18,7 @@ import { CreateBoardComponent } from './create-board/create-board.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
+import { DragulaModule } from 'ng2-dragula';
 
 @NgModule({
   declarations: [
@@ -41,6 +40,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     MatDialogModule,
     BrowserAnimationsModule,
     FontAwesomeModule,
+    DragulaModule.forRoot()
   ],
   providers: [{
     provide: MatDialogRef,
