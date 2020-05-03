@@ -6,11 +6,24 @@
     overflow-x: scroll;
     padding: 8px;
     justify-content: flex-start;
+
+  .wrapper {
+    display: flex;
+    width:100vw;
+    .dragula_container{
+      display: flex;
+      width: 100vw;
+
+      justify-content: space-between;
+    }
+  }
+
 }
 
 .board>* {
     margin-right: 8px;
-}
+
+  }
 
 .trash-zone {
     position: absolute;

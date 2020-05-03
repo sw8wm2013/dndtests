@@ -1,1 +1,12 @@
-<app-board></app-board>
+<!-- <app-board></app-board> -->
+<div #autoscroll class="wrapper">
+  <div class="dragula_container"
+  dragula="DRAGULA_CONTAINER"
+  [(dragulaModel)]="characters">
+    <div *ngFor="let character of characters">
+      <div class="character">
+        {{character.firstName}} {{character.lastName}}
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,8 +1,9 @@
 import { CardService } from './../card/card.service';
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { List } from './list';
 import { Card } from '../card/card';
 
+import autoScroll from 'dom-autoscroller';
 
 @Component({
   selector: 'app-list',
@@ -14,6 +15,7 @@ export class ListComponent implements OnInit {
   cards: Card[] = [];
   displayAddCard = false;
 
+  @ViewChild('scrollthisnow') autoscroll: ElementRef;
 
   constructor(
     private cardService: CardService
@@ -42,6 +44,20 @@ export class ListComponent implements OnInit {
     .subscribe((data) => {
       data.forEach(card => {this.cards.push(card);
       });
+    });
+  }
+
+  ngAfterViewInit(){
+    console.log('AFTER INIT LIST COMPONENT');
+    autoScroll([
+      this.autoscroll.nativeElement
+     ], {
+      margin: 15,
+      maxSpeed: 4,
+      scrollWhenOutside: true,
+      autoScroll() {
+       return this.down;
+      }
     });
   }
 

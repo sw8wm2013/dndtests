@@ -2,17 +2,12 @@
   box-sizing: border-box;
 }
 
-.cards-container {
-  min-height: 20px;
-}
-.cards-container>* {
-  margin-bottom: 6px;
-}
+
 
 .list {
   position: relative;
-  width: 240px;
-  padding: 8px;
+   width: 240px;
+   padding: 8px;
   border-radius: 4px;
   // prevent touch selection from interfering with drags
   -webkit-user-select: none;  /* Chrome all / Safari all */
@@ -23,6 +18,14 @@
   // undo these with .list--placeholder
   background: #eee;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.16);
+  .list_title{
+    color: pink;
+
+    }
+    .card-wrapper{
+      overflow-y: scroll;
+  }
+
 }
 
 
@@ -65,3 +68,4 @@
   margin: 0;
   margin-bottom: 8px;
 }
+

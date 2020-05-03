@@ -6,5 +6,13 @@
   </div>
   <!-- <app-create-board [showForm]="showForm"></app-create-board> -->
   <!-- <app-list *ngFor="let list of defaultLists" [list]="list"></app-list> -->
-  <app-list *ngFor="let list of lists" [list]="list"></app-list>
+  <div #scrollthisnow class="wrapper">
+   <div
+   class="dragula_container"
+   dragula="DRAGULA_CONTAINER"
+   [(dragulaModel)]="lists"
+   >
+      <app-list *ngFor="let list of lists" [list]="list"></app-list>
+    </div>
+  </div>
 </div>
