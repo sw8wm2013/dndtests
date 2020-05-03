@@ -1,3 +1,5 @@
+import { DataService } from './services/data.service';
+import { CommonUtilsService } from './services/common-utils.service';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -8,7 +10,7 @@ import { RouterModule } from "@angular/router";
 import { ReactiveFormsModule } from "@angular/forms";
 import { SkyhookMultiBackendModule } from "@angular-skyhook/multi-backend";
 import { SkyhookSortableModule } from "@angular-skyhook/sortable";
-
+import { NgxSmoothDnDModule } from 'ngx-smooth-dnd';
 
 
 import { AppComponent } from './app.component';
@@ -32,9 +34,10 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   imports: [
     BrowserModule,
     CommonModule,
-    SkyhookDndModule,
-    SkyhookMultiBackendModule,
-    SkyhookSortableModule,
+    NgxSmoothDnDModule,
+    // SkyhookDndModule,
+    // SkyhookMultiBackendModule,
+    // SkyhookSortableModule,
     ReactiveFormsModule,
     NgbModule,
     HttpClientModule,
@@ -42,7 +45,10 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     BrowserAnimationsModule,
     FontAwesomeModule,
   ],
-  providers: [{
+  providers: [
+    CommonUtilsService,
+    DataService,
+    {
     provide: MatDialogRef,
     useValue: {}
   },

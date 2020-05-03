@@ -1,10 +1,23 @@
-<div class="board">
+<!-- <div class="board">
   <div class="add-new-list">
     <button class="btn btn-primary" (click)="openDialog()">
       Add New List
     </button>
-  </div>
+  </div> -->
   <!-- <app-create-board [showForm]="showForm"></app-create-board> -->
   <!-- <app-list *ngFor="let list of defaultLists" [list]="list"></app-list> -->
-  <app-list *ngFor="let list of lists" [list]="list"></app-list>
+  <!-- <div class="scene">
+    <smooth-dnd-container  class="lists" (drop)="onListDrop($event)" [dragHandleSelector]="'.list-drag-handle'">
+      <smooth-dnd-draggable *ngFor="let list of scene.children; let last = last">
+        <app-list [list]="list" [scene]="scene" [class.last-item]="last"></app-list>
+      </smooth-dnd-draggable>
+    </smooth-dnd-container>
+  </div> -->
+  <div class="scene">
+    <smooth-dnd-container [orientation]="'horizontal'" class="lists" (drop)="onColumnDrop($event)" [autoScrollEnabled]="true" [dragHandleSelector]="'.column-drag-handle'">
+        <smooth-dnd-draggable  *ngFor="let column of scene.children; let last = last">
+            <app-list [column]="column" [scene]="scene" [class.last-item]="last"></app-list>
+        </smooth-dnd-draggable>
+    </smooth-dnd-container>
 </div>
+

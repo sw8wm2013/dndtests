@@ -1,21 +1,22 @@
+/* Global imports */
 
-.board {
-    flex: 1;
-    display: flex;
-    min-height: 500px;
-    overflow-x: scroll;
-    padding: 8px;
-    justify-content: flex-start;
+@import "./src/assets/styles/imports";
+
+/* Custom styles */
+
+ :host ::ng-deep {
+    .smooth-dnd-container {
+        &.horizontal {
+            overflow-x: auto;
+            // height: calc(100vh - 3.5rem);
+            @include scrollbar();
+        }
+    }
 }
 
-.board>* {
-    margin-right: 8px;
+.feather {
+    width: 1rem;
+    height: 1rem;
+    stroke-width: 3;
+    vertical-align: sub;
 }
-
-.trash-zone {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    text-align: right;
-}
-

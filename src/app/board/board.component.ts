@@ -5,6 +5,10 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { List } from '../list/list';
 import { Card } from '../card/card';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ContainerComponent, DraggableComponent } from 'ngx-smooth-dnd';
+import { CommonUtilsService } from '../services/common-utils.service';
+import { DataService } from '../services/data.service';
+
 
 
 @Component({
@@ -13,6 +17,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
   styleUrls: ['./board.component.scss']
 })
 export class BoardComponent implements OnInit {
+  scene: any;
   defaultLists: List[];
   lists: List[] = [];
   showForm: boolean = false;
@@ -23,26 +28,41 @@ export class BoardComponent implements OnInit {
   public onAddList: EventEmitter<List>;
 
   constructor(
-    private _listService: ListService,
-    private dialog: MatDialog
+    private listService: ListService,
+    private dialog: MatDialog,
+    private commonUtilsService: CommonUtilsService,
+    private dataService: DataService
   ) {
     this.onAddList = new EventEmitter();
-    this._listService.getAllLists();
+    this.listService.getAllLists();
   }
 
 
   ngOnInit(){
     console.log('GET THE LISTS!');
+    this.scene = this.dataService.getSmoothScrollData();
     // this.setDefaultLists();
-    this._listService.getAllLists()
-      .subscribe((data) =>{
-        data.forEach(list => {this.lists.push(list)
-        });
-      }
+    // this.listService.getAllLists()
+    //   .subscribe((data) =>{
+    //     data.forEach(list => {this.lists.push(list)
+    //     });
+    //   }
 
-      )
+    //   )
 
   }
+
+  onColumnDrop(dropResult: any) {
+    const scene = Object.assign({}, this.scene);
+    scene.children = this.commonUtilsService.applyDrag(scene.children, dropResult);
+    this.scene = scene;
+  }
+
+  // onListDrop(dropResult: any) {
+  //   const scene = Object.assign({}, this.scene);
+  //   scene.children = this.commonUtilsService.applyDrag(scene.children, dropResult);
+  //   this.scene = scene;
+  // }
 
   // setDefaultLists(): void {
   //   const lists: List[] = [
