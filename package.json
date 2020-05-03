@@ -31,6 +31,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.13.0",
     "@ng-bootstrap/ng-bootstrap": "^6.1.0",
     "bootstrap": "^4.4.0",
+    "dom-autoscroller": "^2.3.4",
     "faker": "^4.1.0",
     "immer": "^6.0.3",
     "react-dnd-html5-backend": "^10.0.2",

@@ -8,6 +8,7 @@ import { RouterModule } from "@angular/router";
 import { ReactiveFormsModule } from "@angular/forms";
 import { SkyhookMultiBackendModule } from "@angular-skyhook/multi-backend";
 import { SkyhookSortableModule } from "@angular-skyhook/sortable";
+import { default as HTML5Backend } from 'react-dnd-html5-backend';
 
 
 
@@ -19,6 +20,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CreateBoardComponent } from './create-board/create-board.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { SortableSpecService } from './spec';
 
 
 @NgModule({
@@ -32,7 +34,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   imports: [
     BrowserModule,
     CommonModule,
-    SkyhookDndModule,
+    SkyhookDndModule.forRoot({ backend: HTML5Backend }),
     SkyhookMultiBackendModule,
     SkyhookSortableModule,
     ReactiveFormsModule,
@@ -42,7 +44,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     BrowserAnimationsModule,
     FontAwesomeModule,
   ],
-  providers: [{
+  providers: [
+    SortableSpecService,
+    {
     provide: MatDialogRef,
     useValue: {}
   },

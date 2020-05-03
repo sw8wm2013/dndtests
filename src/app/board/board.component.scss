@@ -1,14 +1,16 @@
+@import "../includes";
 
-.board {
-    flex: 1;
-    display: flex;
+.kanban-root {
+    background: $board-bg;
+    flex: 1; // within parent
+    display: flex; // for showing lists horizontally
     min-height: 500px;
     overflow-x: scroll;
     padding: 8px;
     justify-content: flex-start;
 }
 
-.board>* {
+.kanban-root>* {
     margin-right: 8px;
 }
 

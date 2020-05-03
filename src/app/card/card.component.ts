@@ -7,17 +7,22 @@ import { Card } from './card';
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss']
 })
-export class CardComponent implements OnInit {
- @Input() card: Card;
+export class CardComponent  {
+  @Input() card: Card;
+  @Input() preview = false;
+  @Input() placeholder = false;
 
-  constructor( private cardService: CardService) { }
 
-  ngOnInit(): void {
+  //  @Input() card: Card;
 
-  }
+  // constructor( private cardService: CardService) { }
 
-  deleteCard(){
-    console.log('CARD ID', this.card._id);
-    this.cardService.deleteCard(this.card._id)
-  }
+  // ngOnInit(): void {
+
+  // }
+
+  // deleteCard(){
+  //   console.log('CARD ID', this.card._id);
+  //   this.cardService.deleteCard(this.card._id)
+  // }
 }

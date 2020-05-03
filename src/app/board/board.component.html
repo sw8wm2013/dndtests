@@ -1,10 +1,28 @@
-<div class="board">
-  <div class="add-new-list">
-    <button class="btn btn-primary" (click)="openDialog()">
-      Add New List
-    </button>
-  </div>
-  <!-- <app-create-board [showForm]="showForm"></app-create-board> -->
-  <!-- <app-list *ngFor="let list of defaultLists" [list]="list"></app-list> -->
-  <app-list *ngFor="let list of lists" [list]="list"></app-list>
-</div>
+<skyhook-preview [allBackends]="true">
+  <ng-template let-type let-item="item">
+      <ng-container [ngSwitch]="type">
+          <app-card *ngSwitchCase="ItemTypes.CARD" [card]="item.data" [preview]="true">
+          </app-card>
+          <app-list *ngSwitchCase="ItemTypes.LIST" [list]="item.data" [preview]="true">
+          </app-list>
+      </ng-container>
+  </ng-template>
+</skyhook-preview>
+
+<skyhook-sortable-list class="kanban-root"
+    [ssSortableListId]="888"
+    [ssSortableChildren]="specs.tree"
+    [ssSortableSpec]="specs.boardSpec"
+    ssSortableTrigger="fixed"
+    [ssSortableHorizontal]="true">
+    <ng-template ssTemplate let-context>
+        <app-list
+            #autoscroll
+            [ssRender]="context"
+            [list]="context.data"
+            (addCard)="addCard(context.data.id, $event)">
+        </app-list>
+    </ng-template>
+
+</skyhook-sortable-list>
+

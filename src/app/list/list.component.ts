@@ -1,7 +1,8 @@
-import { CardService } from './../card/card.service';
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { List } from './list';
-import { Card } from '../card/card';
+
+import { Component, OnInit, Input, Output, EventEmitter, Optional } from '@angular/core';
+
+import { SortableSpecService, CardList, Card } from '../spec';
+import { SkyhookSortableRenderer } from '@angular-skyhook/sortable';
 
 
 @Component({
@@ -9,41 +10,26 @@ import { Card } from '../card/card';
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
-export class ListComponent implements OnInit {
-  @Input() list: List;
-  cards: Card[] = [];
-  displayAddCard = false;
+export class ListComponent  {
 
+  @Input() list: CardList;
+  @Input() preview = false;
+  @Output() addCard = new EventEmitter<string>();
 
+  // we won't use these, but you can listen to any old monitor state if you like.
+  // there is a shortcut for m.isDragging() for use in a template, called render?.isDragging$
+  placeholder$ = this.render && this.render.source.listen(m => m.isDragging());
+  isOver$ = this.render && this.render.target.listen(m => m.canDrop() && m.isOver());
+
+  // You can inject any attached directives in a component
+  // - When in the <skyhook-preview>, the directive isn't attached, so make it @Optional()
+  // - Also must be public if you're using it in your template, until the Ivy renderer lands
   constructor(
-    private cardService: CardService
+      public specs: SortableSpecService,
+      @Optional() public render: SkyhookSortableRenderer<CardList>,
   ) { }
 
-  onEnter(value: string) {
-    console.log('Value of input', value);
-    console.log('LIST', this.list);
-    const position = this.cards.length + 1;
-    const newCard: Card = {
-      title: value,
-      currentList: this.list._id,
-      position_on_board: position,
-    };
-    this.cardService.createNewCard(newCard)
-    .subscribe( data => this.cards.push(data));
-  }
-
-
-  toggleDisplayAddCard() {
-    this.displayAddCard = ! this.displayAddCard;
-  }
-
-  ngOnInit(): void {
-    this.cardService.retrieveCardsByList(this.list._id)
-    .subscribe((data) => {
-      data.forEach(card => {this.cards.push(card);
-      });
-    });
-  }
+  trackById = (_: any, x: Card) =>  x.id;
 
 
 }
