@@ -41,6 +41,7 @@ export class BoardComponent implements OnInit {
   ngOnInit(){
     console.log('GET THE LISTS!');
     this.scene = this.dataService.getSmoothScrollData();
+    console.log('THIS SCENE', this.scene);
     // this.setDefaultLists();
     // this.listService.getAllLists()
     //   .subscribe((data) =>{
