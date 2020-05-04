@@ -19,17 +19,22 @@ export class BoardComponent implements OnInit {
   lists: List[] = [];
   showForm: boolean = false;
 
+  scrollElements: any;
+  columns: any;
+  cardsScroll: any;
+
   addListText: string;
   // tslint:disable-next-line: no-output-on-prefix
   @Output()
   public onAddList: EventEmitter<List>;
 
-  @ViewChild('scrollthisnow') autoscroll: ElementRef;
+  // @ViewChild('scrollthisnow') autoscroll: ElementRef;
 
   constructor(
     private _listService: ListService,
     private dialog: MatDialog,
-    private dragulaService: DragulaService
+    private dragulaService: DragulaService,
+    private elRef: ElementRef
   ) {
     this.onAddList = new EventEmitter();
     this._listService.getAllLists();
@@ -37,7 +42,10 @@ export class BoardComponent implements OnInit {
 
 
   ngOnInit(){
-    this.dragulaService.createGroup('DRAGULA_CONTAINER', {});
+    this.dragulaService.createGroup('LIST_GROUP', {
+      moves: (el, source, handle) => handle.className === "group-handle"
+    });
+
     console.log('GET THE LISTS!');
     // this.setDefaultLists();
     this._listService.getAllLists()
@@ -49,17 +57,18 @@ export class BoardComponent implements OnInit {
   }
 
   ngAfterViewInit(){
-    console.log('AFTER INIT');
-    autoScroll([
-      this.autoscroll.nativeElement
-     ], {
-      margin: 35,
-      maxSpeed: 4,
-      scrollWhenOutside: true,
-      autoScroll() {
-       return this.down;
-      }
-    });
+    console.log(' BOARD COMPONENT AFTER INIT');
+    setTimeout(() => { this.initializeScroll(); }, 500);
+    // const elements = Array.from(document.querySelectorAll('.list-wrapper'));
+    // console.log('ELEMENTS', elements);
+    // autoScroll(elements, {
+    //   margin: 30,
+    //   maxSpeed: 10,
+    //   scrollWhenOutside: false,
+    //   autoScroll: function () {
+    //     return this.down;
+    //   }
+    // });
   };
 
   openDialog(){
@@ -81,6 +90,26 @@ export class BoardComponent implements OnInit {
     this.showForm = !this.showForm;
     console.log('Add new list has been clicked', this.showForm );
 
+  }
+
+  initializeScroll(){
+    console.log('INITALIZING SCROLL ON BOARD COMPONENT');
+    this.columns = Array.from(this.elRef.nativeElement.querySelectorAll('.list-wrapper'));
+    this.scrollElements = autoScroll([...this.columns], {
+      margin: 100,
+      speed: 800,
+      scrollWhenOutside: false,
+      autoScroll: function(){
+        console.log('scrolling board comp');
+        return this.down;
+      }
+    });
+  }
+
+  resetScroll(){
+    [...this.columns].forEach(el => this.scrollElements.remove(el));
+    this.columns = Array.from(this.elRef.nativeElement.querySelectorAll('.list-wrapper'));
+    [...this.columns].forEach(el => this.scrollElements.add(el));
   }
 
 

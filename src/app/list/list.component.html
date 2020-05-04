@@ -1,18 +1,18 @@
 <!-- <div class="list-wrapper">
   <div clas="dragula_container" dragula="LISTS"> -->
     <div class="list">
-      <p class="list_title"><strong>{{list.name}}</strong></p>
-      <div  class="card-wrapper">
+      <p class="list_title"><span class="group-handle">{{list.name}}</span><strong></strong></p>
+      <div class="autoscroll-wrapper">
+      <div class="card-wrapper">
         <div
-        #scrollthisnow
         class="dragula_container"
-        dragula="DRAGULA_CONTAINER"
-        [(dragulaModel)]="cards"
+        dragula="CARDS"
         >
         <app-card *ngFor="let card of cards" [card]="card"></app-card>
         </div>
         <input #addCardInput type="text" (keyup.enter)="onEnter(addCardInput.value); addCardInput.value=''; displayAddCard=false;" *ngIf="displayAddCard" autofocus>
         <a href="#" class="list__newcard" (click)="toggleDisplayAddCard();">Add a card...</a>
+      </div>
       </div>
     </div>
   <!-- </div>

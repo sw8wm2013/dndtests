@@ -4,6 +4,7 @@ import { List } from './list';
 import { Card } from '../card/card';
 
 import autoScroll from 'dom-autoscroller';
+import { DragulaService } from 'ng2-dragula';
 
 @Component({
   selector: 'app-list',
@@ -15,15 +16,18 @@ export class ListComponent implements OnInit {
   cards: Card[] = [];
   displayAddCard = false;
 
-  @ViewChild('scrollthisnow') autoscroll: ElementRef;
+  scrollElements: any;
+  cardsScroll: any;
+
+  // @ViewChild('autoscroll') autoscroll: ElementRef;
 
   constructor(
-    private cardService: CardService
-  ) { }
+    private cardService: CardService,
+    private elRef: ElementRef,
+    private dragulaService: DragulaService,
+  ) {}
 
   onEnter(value: string) {
-    console.log('Value of input', value);
-    console.log('LIST', this.list);
     const position = this.cards.length + 1;
     const newCard: Card = {
       title: value,
@@ -45,21 +49,44 @@ export class ListComponent implements OnInit {
       data.forEach(card => {this.cards.push(card);
       });
     });
+
   }
 
   ngAfterViewInit(){
-    console.log('AFTER INIT LIST COMPONENT');
-    autoScroll([
-      this.autoscroll.nativeElement
-     ], {
-      margin: 15,
-      maxSpeed: 4,
-      scrollWhenOutside: true,
-      autoScroll() {
-       return this.down;
+    setTimeout(() => { this.initializeScroll(); }, 500);
+    //  autoScroll([
+    //    this.autoscroll.nativeElement
+    //   ], {
+    //    margin: 15,
+    //    maxSpeed: 700,
+    //    scrollWhenOutside: true,
+    //    autoScroll() {
+    //      console.log('AUTOSCROLL?');
+    //     return this.down;
+    //    }
+    //  });
+  }
+  // card-wrapper
+
+  initializeScroll(){
+    console.log('INITALIZING SCROLL ON LIST COMPONENT', this.cardsScroll);
+    this.cardsScroll = Array.from(this.elRef.nativeElement.querySelectorAll('.autoscroll-wrapper'));
+    console.log('CARDS ON SCROLL', this.cardsScroll);
+    this.scrollElements = autoScroll([...this.cardsScroll], {
+      margin: 100,
+      speed: 500,
+      scrollWhenOutside: false,
+      autoScroll: function(){
+        console.log('scrollin list comp', this.scrolling);
+        return this.down;
       }
     });
   }
 
+  resetScroll(){
+    [...this.cardsScroll].forEach(el => this.scrollElements.remove(el));
+    this.cardsScroll = Array.from(this.elRef.nativeElement.querySelectorAll('.autoscroll-wrapper'));
+    [...this.cardsScroll].forEach(el => this.scrollElements.add(el));
+  }
 
 }
