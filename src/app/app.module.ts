@@ -1,3 +1,5 @@
+import { CommonUtilsService } from './services/commonutils.service';
+import { DataService } from './services/data.service';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -42,7 +44,10 @@ import { DragulaModule } from 'ng2-dragula';
     FontAwesomeModule,
     DragulaModule.forRoot()
   ],
-  providers: [{
+  providers: [
+    DataService,
+    CommonUtilsService,
+    {
     provide: MatDialogRef,
     useValue: {}
   },
