@@ -1,7 +1,7 @@
 <div class="list">
   <p class="list_title"><strong>{{list.name}}</strong></p>
-  <div class="cards">
-    <app-card *ngFor="let card of cards" [card]="card"></app-card>
+  <div class="card-wrapper" cdkDropList >
+    <app-card *ngFor="let card of cards" [card]="card" cdkDrag></app-card>
   </div>
   <input #addCardInput type="text" (keyup.enter)="onEnter(addCardInput.value); addCardInput.value=''; displayAddCard=false;" *ngIf="displayAddCard" autofocus>
 	<a href="#" class="list__newcard" (click)="toggleDisplayAddCard();">Add a card...</a>

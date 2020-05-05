@@ -6,5 +6,16 @@
   </div>
   <!-- <app-create-board [showForm]="showForm"></app-create-board> -->
   <!-- <app-list *ngFor="let list of defaultLists" [list]="list"></app-list> -->
-  <app-list *ngFor="let list of lists" [list]="list"></app-list>
+  <!-- <div cdkDropList class="list-wrapper" (cdkDropListDropped)="drop($event)" [cdkDropListData]="list">
+    <app-list *ngFor="let list of lists" [list]="list" cdkDrag></app-list>
+  </div>
+</div> -->
+  <div cdkDropListGroup>
+  </div>
+  <div class="list-wrapper" cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event)">
+    <app-list *ngFor="let list of lists"
+      [list]="list" cdkDrag >
+    </app-list>
+  </div>
+
 </div>

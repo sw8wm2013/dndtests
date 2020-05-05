@@ -6,6 +6,8 @@ import { List } from '../list/list';
 import { Card } from '../card/card';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+
 
 @Component({
   selector: 'app-board',
@@ -42,6 +44,11 @@ export class BoardComponent implements OnInit {
 
       )
 
+  }
+
+  drop( event: CdkDragDrop<string[]>){
+    console.log('EVENT', event);
+    moveItemInArray(this.lists, event.previousIndex, event.currentIndex)
   }
 
   // setDefaultLists(): void {

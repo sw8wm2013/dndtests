@@ -2,6 +2,8 @@ import { CardService } from './../card/card.service';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { List } from './list';
 import { Card } from '../card/card';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+
 
 
 @Component({
